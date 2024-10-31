@@ -19,52 +19,62 @@ class Logger (filePath: String = "/logs/Log.txt") {
 }
 
 class Bank(
+  private val name: String = "unknown",
   private var rubBalance: Double = 0.0,
   private var usdBalance: Double = 0.0,
-  internal var exchangeRate: Double = 1.0  // exchangeRate rub for 1 usd
-) {                                        // 1/exchangeRate usd for 1 rub
-  internal fun sendRub(amount: Double): Double {
+  internal var exchangeRate: Double = 1.0
+) {
+  private var logger: Logger = Logger("/logs/Bank_log.txt")
+  private var registerCodes: MutableList<Int> = mutableListOf()
+
+  internal fun sendRub(amount: Double, registerCode: Int): Double {
+    if (!registerCodes.contains(registerCode)) {
+      throw Exception("Bank '$name': Unknown RegisterCode $registerCode")
+    }
     var toSend = amount
     if (rubBalance < toSend)
       toSend = rubBalance
     rubBalance -= toSend
-    recalculateExchangeRate()
+    logger.log("Bank '$name': Send $toSend roubles.")
     return toSend
   }
 
-  internal fun sendUsd(amount: Double): Double {
+  internal fun sendUsd(amount: Double, registerCode: Int): Double {
+    if (!registerCodes.contains(registerCode)) {
+      throw Exception("Bank '$name': Unknown RegisterCode $registerCode")
+    }
     var toSend = amount
     if (usdBalance < toSend)
       toSend = usdBalance
     usdBalance -= toSend
-    recalculateExchangeRate()
+    logger.log("Bank '$name': Send $toSend baksov.")
     return toSend
   }
 
-  internal fun receiveRub(amount: Double) {
+  internal fun receiveRub(amount: Double, registerCode: Int) {
+    if (!registerCodes.contains(registerCode)) {
+      throw Exception("Bank '$name': Unknown RegisterCode $registerCode")
+    }
     rubBalance += amount
-    recalculateExchangeRate()
+    logger.log("Bank '$name': Received $amount rubs.")
   }
 
-  internal fun receiveUsd(amount: Double) {
+  internal fun receiveUsd(amount: Double, registerCode: Int) {
+    if (!registerCodes.contains(registerCode)) {
+      throw Exception("Bank '$name': Unknown RegisterCode $registerCode")
+    }
     usdBalance += amount
-    recalculateExchangeRate()
-  }
-
-  private fun recalculateExchangeRate() {
-    if (Random.nextBoolean())
-      exchangeRate *= Random.nextDouble(1.0, 2.0)
-    else
-      exchangeRate /= Random.nextDouble(1.0, 2.0)
+    logger.log("Bank '$name': Received $amount baksov.")
   }
 
   fun createCashRegister(): CashRegister {
-    return CashRegister(bank = this)
-  }
-
-  private class BankLogger (filePath: String = "/log/Log.txt") : Logger(filePath)
-  {
-
+    var registerCode = Random.nextInt()
+    while (!registerCodes.contains(registerCode)) {
+      registerCode = Random.nextInt()
+    }
+    registerCodes.addLast(registerCode)
+    logger.log("Bank '$name': Created CashRegister with code: $registerCode")
+    return CashRegister(bank = this, code = registerCode)
   }
 
 }
@@ -75,17 +85,18 @@ interface CashRegisterInterface {
   fun checkExchangeRate(): Double
 }
 
-class CashRegister (private var bank: Bank) : CashRegisterInterface {
+class CashRegister (private var bank: Bank, private val code: Int) : CashRegisterInterface
+{
 
   override fun exchangeRubToUsd(rubAmount: Double): Double {
-    val usdAmount = bank.sendUsd(rubAmount * bank.exchangeRate)
-    bank.receiveRub(rubAmount)
+    val usdAmount = bank.sendUsd(rubAmount * bank.exchangeRate, code)
+    bank.receiveRub(rubAmount, code)
     return usdAmount
   }
 
   override fun exchangeUsdToRub(usdAmount: Double): Double{
-    val rubAmount = bank.sendRub(usdAmount * (1 / bank.exchangeRate))
-    bank.receiveUsd(usdAmount)
+    val rubAmount = bank.sendRub(usdAmount * (1 / bank.exchangeRate), code)
+    bank.receiveUsd(usdAmount, code)
     return rubAmount
   }
 
