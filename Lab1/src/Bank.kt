@@ -2,7 +2,7 @@ import kotlin.random.Random
 import java.io.File
 import java.io.IOException
 
-class Logger (filePath: String = "/logs/Log.txt") {
+class Logger (filePath: String = "logs/Log.txt") {
   private var logFile: File = File(filePath)
   init {
     if (!logFile.exists()) {
@@ -28,7 +28,10 @@ class Bank(
   private var usdBalance: Double = 0.0,
   internal var exchangeRate: Double = 1.0
 ) : BankInterface {
-  private var logger: Logger = Logger("/logs/Bank_log.txt")
+  private var logger: Logger = Logger("logs/Bank_log.txt")
+  init {
+    logger.log("Bank '$name' is created.")
+  }
 
   override fun createCashRegister(): CashRegister {
     logger.log("Bank '$name': Created CashRegister.")
@@ -82,7 +85,7 @@ interface CashRegisterInterface {
 class CashRegister internal constructor(private var bank: Bank) : CashRegisterInterface
 {
   private var exchangeRate: Double = bank.exchangeRate
-  private var logger: Logger = Logger("/logs/CashRegister_log.txt")
+  private var logger: Logger = Logger("logs/CashRegister_log.txt")
 
   override fun exchangeRubToUsd(rubAmount: Double): Double {
     val usdAmount = bank.sendUsd(rubAmount * bank.exchangeRate)
