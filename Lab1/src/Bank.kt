@@ -24,9 +24,9 @@ interface BankInterface {
 
 class Bank(
   internal val name: String = "unknown",
-  internal var exchangeRate: Double = 1.0,
   private var rubBalance: Double = 0.0,
-  private var usdBalance: Double = 0.0
+  private var usdBalance: Double = 0.0,
+  internal var exchangeRate: Double = 1.0
 ) : BankInterface {
   private var logger: Logger = Logger("/logs/Bank_log.txt")
 
@@ -104,8 +104,4 @@ class CashRegister internal constructor(private var bank: Bank) : CashRegisterIn
     logger.log("Bank '${bank.name}': Checked ExchangeRate. Currently: $exchangeRate.")
     return exchangeRate
   }
-}
-
-fun main() {
-  println("Test commit")
 }
