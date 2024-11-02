@@ -1,5 +1,3 @@
-package finance
-
 class CashRegister internal constructor(private var bank: Bank) : CashRegisterInterface
 {
   private var exchangeRate: Double = bank.exchangeRate

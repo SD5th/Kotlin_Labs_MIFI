@@ -1,5 +1,3 @@
-package finance
-
 import kotlin.random.Random
 
 class Bank(
