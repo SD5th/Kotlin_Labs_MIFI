@@ -1,1 +1,21 @@
 Bank 'Default Bank' is created.
+Bank 'Default Bank' is created.
+Bank 'Default Bank': Created CashRegister.
+Bank 'Vasilisa' is created.
+Bank 'Vasilisa': Created CashRegister.
+Bank 'Vasilisa' is created.
+Bank 'Vasilisa': Created CashRegister.
+Bank 'Vasilisa' is created.
+Bank 'Vasilisa': Created CashRegister.
+Bank 'Vasilisa' is created.
+Bank 'Vasilisa': Created CashRegister.
+Bank 'Vasilisa' is created.
+Bank 'Vasilisa': Created CashRegister.
+Bank 'Vasilisa': Send 120.0 baksov.
+Bank 'Vasilisa': Recalculated ExchangeRate. Currently: 0.9538528187532428.
+Bank 'Vasilisa': Received 120.0 rubs.
+Bank 'Vasilisa': Recalculated ExchangeRate. Currently: 1.593112176583961.
+Bank 'Vasilisa': Send 195.9527977198272 baksov.
+Bank 'Vasilisa': Recalculated ExchangeRate. Currently: 3.1842654208506262.
+Bank 'Vasilisa': Received 123.0 rubs.
+Bank 'Vasilisa': Recalculated ExchangeRate. Currently: 5.159853984499284.

@@ -1,0 +1,8 @@
+Bank 'Vasilisa': Checked ExchangeRate. Currently: 1.0.
+Bank 'Vasilisa': Checked ExchangeRate. Currently: 1.0.
+Bank 'Vasilisa': Checked ExchangeRate. Currently: 1.0.
+Bank 'Vasilisa': Checked ExchangeRate. Currently: 1.0.
+Bank 'Vasilisa': Exchanged 120.0 of roubles for 120.0 of baksov.
+Bank 'Vasilisa': Checked ExchangeRate. Currently: 1.593112176583961.
+Bank 'Vasilisa': Checked ExchangeRate. Currently: 1.593112176583961.
+Bank 'Vasilisa': Exchanged 123.0 of roubles for 195.9527977198272 of baksov.
